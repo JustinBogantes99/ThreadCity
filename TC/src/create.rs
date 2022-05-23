@@ -1,27 +1,29 @@
-use std::thread;
-use std::mem::*;
-
+use std::thread;//biblioteca de Hilos 
+use std::mem::*;//biblioteca 
+//estructura de un Hilo
 struct fiber {
     context:u64,
     id:u64,
     active:bool,
     stack:Vec<u64>
 }
-
-struct thread_info {    /* Used as argument to thread_start() */
-    thread_id:    u64,        /* ID returned by pthread_create() */
-    thread_num:   u64,       /* Application-defined thread # */
-    argv_string: *mut char,      /* From command-line argument */
+///Estructura que almena los Scheduler y el hilo
+struct thread_info {     
+    thread_id:    u64,        
+    thread_num:   u64,        
+    argv_string: *mut char,       
     Scheduler: String,
 }
+
+///cantidad de Hilos que soportaria la aplicacion
 static mut MAX_FIBERS: u64 =  10;
-
+//Lista de todos los hilos en funcionamiento
 static fiberList:Vec<fiber> = Vec::new();
-
+//argumentos que trabajar los hilos
 pub struct FiberArguments {
     pub function: Option<unsafe extern "C" fn() -> ()>,
 }
-
+//proceso que deberia iniciar el hilo
 pub fn initThread(arg:String ){
     println!("{:?}",arg);
 
@@ -35,7 +37,6 @@ pub fn initThread(arg:String ){
 }
 pub fn createThread(arg:String ){
     println!("{:?}",arg)
-
 }
 
 
